@@ -28,39 +28,69 @@ TCP_Chess/
 
 ## 🚀 How to Run
 
-### 1️⃣ Install dependencies
+## 1️⃣ Install Dependencies
+
 It is recommended to use a virtual environment.
 
-  python3 -m venv venv
-  
-  source venv/bin/activate   # macOS / Linux
-  
-  venv\Scripts\activate      # Windows
+### Create and activate a virtual environment
+```bash
+python3 -m venv venv
 
-Install pygame:
-  pip install pygame
+# macOS / Linux
+source venv/bin/activate
 
-2️⃣ Start the server
+# Windows
+venv\Scripts\activate
+```
+
+### Install Pygame
+```bash
+pip install pygame
+```
+
+---
+
+## 2️⃣ Start the Server
+
 Run the server in a terminal:
-  python3 chess_server.py
+
+```bash
+python3 chess_server.py
+```
 
 You should see:
+
+```
 Server listening on port 5002
+```
 
-3️⃣ Start two clients
-Open two separate terminals and run:
-  python3 chess_gui.py
-Each client enters a name → the server automatically pairs them.
+---
 
-🎮 Game Controls
-  Drag and drop pieces to make moves
-  Illegal moves trigger an on-screen popup
-  Move list appears in the right sidebar
-  Click Quit Game to resign
-When your opponent disconnects, you win by forfeit
+## 3️⃣ Start Two Clients
 
-🧩 Requirements
-  Python 3.10 or newer
-  pygame 2.6 or newer
+Open **two separate terminals**, and run:
 
+```bash
+python3 chess_gui.py
+```
+
+Each client enters a name →  
+The server **automatically pairs** the two players into a game.
+
+---
+
+## 🎮 Game Controls
+
+- **Drag and drop** pieces to make moves  
+- **Illegal moves** trigger an on-screen popup  
+- **Move list** appears in the right sidebar  
+- **Quit Game** at any time using the quit button  
+- If your opponent disconnects, **you win by forfeit**
+
+---
+
+## 🧩 Requirements
+
+- **Python 3.10+**  
+- **pygame 2.6+**
 
