@@ -32,6 +32,7 @@ It is recommended to use a virtual environment.
 
 python3 -m venv venv
 source venv/bin/activate   # macOS / Linux
+
 venv\Scripts\activate      # Windows
 
 Install pygame:
