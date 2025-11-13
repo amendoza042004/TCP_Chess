@@ -15,14 +15,15 @@ A two-player online chess game built using **Python**, **TCP sockets**, and a **
 
 ---
 
-## 📂 Project Structure
+## 📁 Project Structure
 
+```
 TCP_Chess/
-│── chess_server.py # Handles connections, game pairing, and state updates
-│── chess_logic.py # Full custom chess rules and move validation
-│── chess_gui.py # Pygame GUI client for players
-│── README.md # Documentation
-
+│── chess_server.py   # Handles connections, game pairing, and state updates
+│── chess_logic.py    # Full custom chess rules and move validation
+│── chess_gui.py      # Pygame GUI client for players
+│── README.md         # Documentation
+```
 ---
 
 ## 🚀 How to Run
@@ -30,11 +31,11 @@ TCP_Chess/
 ### 1️⃣ Install dependencies
 It is recommended to use a virtual environment.
 
-python3 -m venv venv
-
-source venv/bin/activate   # macOS / Linux
-
-venv\Scripts\activate      # Windows
+  python3 -m venv venv
+  
+  source venv/bin/activate   # macOS / Linux
+  
+  venv\Scripts\activate      # Windows
 
 Install pygame:
   pip install pygame
