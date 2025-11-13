@@ -74,6 +74,9 @@ class ChessGUI:
         self.illegal_message = ""
         self.illegal_timer = 0  
 
+        self.game_over = False
+        self.result_text = ""
+
 
         # Drag state
         self.dragging = False
@@ -115,6 +118,31 @@ class ChessGUI:
 
         elif t == "result":
             print("GAME OVER:", data)
+            self.game_over = True
+
+            winner = data.get("winner")       # "white", "black", or "draw"
+            outcome = data.get("outcome", "") # "checkmate", "stalemate", etc.
+
+            # Build human-readable result text
+            if winner == "draw":
+                result_text = "Draw"
+            else:
+                # If I am the winner
+                if winner == self.color:
+                    result_text = "You win"
+                else:
+                    # Opponent is the winner
+                    result_text = f"{self.opponent} wins"
+
+            # Add reason
+            if outcome:
+                self.result_text = f"{result_text} ({outcome})"
+            else:
+                self.result_text = result_text
+
+            # No more turns after game over
+            self.turn = None
+
 
     #FEN PARSER
     def parse_fen(self, fen):
@@ -195,6 +223,9 @@ class ChessGUI:
         return "abcdefgh"[c] + "87654321"[r]
 
     def handle_click(self, pos):
+        if self.game_over:
+            return
+        
         if not self.fen:
             return
 
@@ -225,6 +256,9 @@ class ChessGUI:
         self.drag_from = (r, c)
 
     def handle_drop(self, pos):
+        if self.game_over:
+            return
+        
         if not self.dragging or not self.fen:
             return
 
@@ -335,6 +369,30 @@ class ChessGUI:
             quit_label = self.infotext.render("Quit Game", True, (255, 255, 255))
             label_rect = quit_label.get_rect(center=self.quit_rect.center)
             self.screen.blit(quit_label, label_rect)
+
+            # Game over overlay
+            if self.game_over:
+                overlay_rect = pygame.Rect(
+                    WIDTH//2 - 200,
+                    HEIGHT//2 - 75,
+                    400,
+                    150
+                )
+
+                pygame.draw.rect(self.screen, (0, 0, 0), overlay_rect)
+                pygame.draw.rect(self.screen, (255, 255, 255), overlay_rect, 3)
+
+                title = self.infotext.render("GAME OVER", True, (255, 255, 255))
+                title_rect = title.get_rect(center=(WIDTH//2, HEIGHT//2 - 25))
+                self.screen.blit(title, title_rect)
+
+                result_label = self.infotext.render(self.result_text, True, (255, 255, 255))
+                result_rect = result_label.get_rect(center=(WIDTH//2, HEIGHT//2 + 10))
+                self.screen.blit(result_label, result_rect)
+
+                hint = self.infotext.render("Press Quit Game to exit", True, (200, 200, 200))
+                hint_rect = hint.get_rect(center=(WIDTH//2, HEIGHT//2 + 45))
+                self.screen.blit(hint, hint_rect)
 
             pygame.display.flip()
             clock.tick(60)
